@@ -1,4 +1,7 @@
 server {
-	listen 		9000;
-	server_name	localhost;
+	listen 		80;
+	server_name	chaidel.42.fr;
+	
+	index index.php;
+
 }

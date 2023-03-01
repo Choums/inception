@@ -1,12 +1,10 @@
-FROM nginx:alpine
+FROM alpine:3.16
 
-WORKDIR ./ ./nginx
-
-COPY ./conf ./nginx/conf
-
-RUN apk -U upgrade
+RUN apk -U upgrade\
 	&& apk add nginx
 
-EXPOSE 9000
+COPY ./conf /etc/nginx/nginx.conf
 
-EXPOSE 443
+EXPOSE 80
+
+CMD	["nginx", "-g", "daemon off;"]
