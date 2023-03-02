@@ -1,5 +1,5 @@
 server {
-	listen 		80;
+	listen 		443;
 	server_name	chaidel.42.fr;
 	
 	index index.php;
