@@ -1,7 +1,14 @@
-server {
-	listen 		443;
-	server_name	chaidel.42.fr;
-	
-	index index.php;
+http {
+	server {
+		listen		443 ssl;
+		server_name	chaidel.42.fr;
+		
+		ssl_protocol		TLSv1.3;
+		ssl_certificate		/etc/certs/certificate.pem;
+		ssl_certificate_key	/etc/private/private.key;
+	}
+}
 
+events {
+	worker_connections	1024;
 }
