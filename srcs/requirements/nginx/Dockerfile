@@ -5,8 +5,8 @@ RUN apk -U upgrade\
 
 COPY ./conf /etc/nginx/nginx.conf
 
-COPY	./tools/private.key		/etc/private/certificate.pem
-COPY	./tools/certificate.pem	/etc/certs/private.key
+COPY ./tools/private.key		/etc/private/certificate.pem
+COPY ./tools/certificate.pem	/etc/certs/private.key
 
 EXPOSE 443
 

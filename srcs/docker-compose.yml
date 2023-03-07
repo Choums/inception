@@ -1,0 +1,39 @@
+version:	'3'
+
+services:
+		serv_nginx:
+			build:	./requirements/nginx
+			env_files:
+				-.env
+			ports:
+				-443:443
+			networks:
+				-docker_network
+			restart:	always
+		
+		Wordpress:
+			build:	./requirements/wordpress
+			depends_on:
+				-Mariadb
+			env_files:
+				-.env
+			ports:
+				-9000:9000
+			networks:
+				-docker_network
+			restart:	always
+			
+		Mariadb:
+			build:	./requirements/mariadb
+			env_files:
+				-.env
+			ports:
+				-3306:3306
+			networks:
+				-docker_network
+			restart:	always
+
+networks:
+	-docker_network
+
+volumes:
