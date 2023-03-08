@@ -22,6 +22,8 @@ services:
 				-9000:9000
 			networks:
 				-docker_network
+			volumes:
+				-wddata:
 			restart:	always
 			hostname:	wordpress
 			
@@ -33,6 +35,8 @@ services:
 				-3306:3306
 			networks:
 				-docker_network
+			volumes:
+				dbdata:
 			restart:	always
 			hostname:	mariadb
 
@@ -40,3 +44,15 @@ networks:
 	-docker_network
 
 volumes:
+	dbdata:
+		driver:	local
+		driver_opts:
+			type:	'none'
+			o:		'bind'
+			device:	'/home/$USER/data/mariadb'
+	wddata:
+		driver:	local
+		driver_opts:
+			type:	'none'
+			o:		'bind'
+			device:	'/home/$USER/data/wordpress'
