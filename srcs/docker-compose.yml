@@ -1,7 +1,7 @@
 version:	'3'
 
 services:
-		serv_nginx:
+		nginx:
 			build:	./requirements/nginx
 			env_files:
 				-.env
@@ -10,6 +10,7 @@ services:
 			networks:
 				-docker_network
 			restart:	always
+			hostname:	nginx
 		
 		Wordpress:
 			build:	./requirements/wordpress
@@ -22,6 +23,7 @@ services:
 			networks:
 				-docker_network
 			restart:	always
+			hostname:	wordpress
 			
 		Mariadb:
 			build:	./requirements/mariadb
@@ -32,6 +34,7 @@ services:
 			networks:
 				-docker_network
 			restart:	always
+			hostname:	mariadb
 
 networks:
 	-docker_network

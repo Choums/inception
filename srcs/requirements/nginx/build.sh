@@ -10,16 +10,19 @@ fi
 
 if [ "$1" == 'Build' ]; then
 	docker build . --file Dockerfile -t "$2"
-	echo "Build successful\n"
+	echo "Build successful"
 
-	docker run --name "$3" -p 443:443 -d -it "$2"
-	echo "Run done\n"
+	docker run --name "$3" -p 443:443 -d -it "$2" /bin/sh
+	echo "Run done"
 
 	docker exec -it "$3" /bin/sh
 elif [ "$1" == 'Stop' ]; then
 	docker stop "$3"
+	echo "Container $3 Stopped"
 	docker rm -f "$3"
+	echo "Container $3 Deleted"
 	docker rmi -f "$2"
+	echo "Image $2 Deleted"
 else
-	echo "Command missing: 'Build' or 'Stop'\n"
+	echo "Command missing: 'Build' or 'Stop'"
 fi
