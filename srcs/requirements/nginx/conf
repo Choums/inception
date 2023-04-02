@@ -6,6 +6,28 @@ http {
 		ssl_protocols		TLSv1.3;
 		ssl_certificate		/etc/nginx/certificate.pem;
 		ssl_certificate_key	/etc/nginx/private.key;
+
+		root	/var/www;
+		index	index.php;
+
+		# Requetes PHP
+		location ~ \.php {
+			fastcgi_split_path_info ^(.+\.php)(/.+)$; # Decoupe les infos et les captures dans document root et script name
+			if (!f $document_root$fastcgi_script_name) { # Verif que les fichiers existents
+				return 404;
+			}
+
+			fastcgi_pass	wordpress:9000;
+			fastcgi_index	index.php; 		# Index par defauts si aucun n'est fournis
+			fastcgi_param	SCRIPT_FILENAME $document_root$fastcgi_script_name;	# Indique ou se trouvent les fichiers PHP demandes
+			fastcgi_param	PATH_INFO $fastcgi_path_info;
+			include			fastcgi_params;	# Inclut les params par defaut
+		}
+
+		# Autres Requetes
+		location / {
+			try_files	$uri $uri/ /index.php?args;
+		}
 	}
 }
 
