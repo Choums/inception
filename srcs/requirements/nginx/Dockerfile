@@ -1,7 +1,7 @@
 ROM alpine:3.16
 
 RUN apk -U upgrade\
-	&& apk add nginx
+	&& apk add --no-cache nginx
 
 COPY ./conf /etc/nginx/nginx.conf
 
