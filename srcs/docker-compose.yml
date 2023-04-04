@@ -1,58 +1,58 @@
 version:	'3'
 
 services:
-		nginx:
-			build:	./requirements/nginx
-			env_files:
-				-.env
-			ports:
-				-443:443
-			networks:
-				-docker_network
-			restart:	always
-			hostname:	nginx
-		
-		Wordpress:
-			build:	./requirements/wordpress
-			depends_on:
-				-Mariadb
-			env_files:
-				-.env
-			ports:
-				-9000:9000
-			networks:
-				-docker_network
-			volumes:
-				-wpdata: /var/www
-			restart:	always
-			hostname:	wordpress
-			
-		Mariadb:
-			build:	./requirements/mariadb
-			env_files:
-				-.env
-			ports:
-				-3306:3306
-			networks:
-				-docker_network
-			volumes:
-				-dbdata: /var/lib/mysql
-			restart:	always
-			hostname:	mariadb
+    nginx:
+        build:	./requirements/nginx
+        env_file:
+          - .env
+        ports:
+          - 443:443
+        networks:
+          - docker_network
+        restart:	always
+        hostname:	nginx
+
+    wordpress:
+        build:	./requirements/wordpress
+        depends_on:
+          - mariadb
+        env_file:
+          - .env
+        ports:
+          - 9000:9000
+        networks:
+          - docker_network
+        volumes:
+          - /var/www
+        restart:	always
+        hostname:	wordpress
+      
+    mariadb:
+        build:	./requirements/mariadb
+        env_file:
+          - .env
+        ports:
+          - 3306:3306
+        networks:
+          - docker_network
+        volumes:
+          - /var/lib/mysql
+        restart:	always
+        hostname:	mariadb
 
 networks:
-	-docker_network
+  docker_network:
 
 volumes:
-	dbdata:
-		driver:	local
-		driver_opts:
-			type:	'none'
-			o:		'bind'
-			device:	'/home/$USER/data/mariadb'
-	wpdata:
-		driver:	local
-		driver_opts:
-			type:	'none'
-			o:		'bind'
-			device:	'/home/$USER/data/wordpress'
+    dbdata:
+        driver:	local
+        driver_opts:
+          type:	'none'
+          o:		'bind'
+          device:	'/home/$USER/data/mariadb'
+    wpdata:
+        driver:	local
+        driver_opts:
+          type:	'none'
+          o:		'bind'
+          device:	'/home/$USER/data/wordpress'

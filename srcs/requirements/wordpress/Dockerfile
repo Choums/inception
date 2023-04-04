@@ -1,8 +1,9 @@
-FROM: alpine:3.16
+FROM alpine:3.16
 
 RUN apk update && \
 	apk add --no-cache php8 \
 	php8-fpm \
+	php8-phar \
 	php8-json \
 	php8-mysqli \
 	php8-curl \
@@ -15,6 +16,7 @@ RUN apk update && \
 	tar
 
 WORKDIR /var/www
+RUN chmod +x /var/www
 
 # Installation de WordPress
 RUN curl -O https://wordpress.org/latest.tar.gz && \
@@ -29,7 +31,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 EXPOSE 9000
 
-COPY /tools/wp-install.sh /wp-install.sh
-RUN chmod +x wp-install.sh
+COPY ./tools/wp-install.sh	/wp-install.sh
+RUN chmod +x /wp-install.sh
 
-ENTRYPOINT [ "wp-install.sh" ]
+ENTRYPOINT [ "/wp-install.sh" ]

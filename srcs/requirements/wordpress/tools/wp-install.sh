@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wp core install --path="/var/www" \
+wp core install --path="/var/www/wordpress" \
                 --url="https://chaidel@42.fr" \
                 --title="Inception" \
                 --admin_user="Chamsito" \
