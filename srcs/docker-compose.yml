@@ -36,7 +36,7 @@ services:
 			networks:
 				-docker_network
 			volumes:
-				-dbdata: # VOLUMES
+				-dbdata: /var/lib/mysql
 			restart:	always
 			hostname:	mariadb
 
