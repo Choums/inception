@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/bin/sh
+
+cd /var/www/wordpress
 
 wp core install --path="/var/www/wordpress" \
                 --url="https://chaidel@42.fr" \

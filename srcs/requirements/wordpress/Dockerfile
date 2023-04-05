@@ -31,6 +31,9 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 EXPOSE 9000
 
+COPY ./tools/wp-config.php /var/www/wp-config.php
+RUN chmod +x /var/www/wp-config.php
+
 COPY ./tools/wp-install.sh	/wp-install.sh
 RUN chmod +x /wp-install.sh
 
