@@ -1,3 +1,3 @@
 #!/bin/sh
 
-run init.sql
+mysqld --user=mysql --bootstrap < /init.sql
