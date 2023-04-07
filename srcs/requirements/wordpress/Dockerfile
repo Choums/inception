@@ -29,6 +29,11 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
+COPY ./tools/www.conf /etc/php/8/fpm/
+RUN chmod +x /etc/php/8/fpm/www.conf
+
+CMD ["php-fpm8.0", "--nodaemonize"]
+
 EXPOSE 9000
 
 COPY ./tools/wp-config.php /var/www/wp-config.php
