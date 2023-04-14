@@ -13,4 +13,5 @@ wp user create Chamsito chaidel@42.fr --role=administrator
 
 wp user create random rand@42.fr --role=author
 
-php-fpm8 -F
+tail -f
+# php-fpm8 --nodaemonize

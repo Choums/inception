@@ -28,6 +28,8 @@ services:
           - /var/www
         restart:	always
         hostname:	wordpress
+        expose:
+          - "9000"
       
     mariadb:
         container_name: mariadb
@@ -42,9 +44,12 @@ services:
           - /var/lib/mysql
         restart:	always
         hostname:	mariadb
+        expose:
+          - "3306"
 
 networks:
   docker_network:
+    driver: bridge
 
 volumes:
     dbdata:
