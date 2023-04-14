@@ -5,7 +5,7 @@ RUN	apk -U upgrade\
 
 EXPOSE 3306
 
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 #RUN mysql_install_db --user=me
