@@ -1,7 +1,7 @@
 FROM alpine:3.14
 
 RUN apk -U upgrade\
-	&& apk add --no-cache nginx
+	&& apk add --no-cache --update nginx
 
 COPY ./conf /etc/nginx/nginx.conf
 

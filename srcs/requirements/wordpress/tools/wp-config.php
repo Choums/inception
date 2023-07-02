@@ -49,7 +49,7 @@ $table_prefix  = 'wp_';
 /*
  * For developers: WordPress debugging mode.
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
