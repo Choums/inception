@@ -1,17 +1,14 @@
-FROM alpine:3.16
+FROM alpine:3.14
 
 RUN apk update && \
-	apk add --no-cache php8 \
-	php8-fpm \
-	php8-phar \
-	php8-json \
-	php8-mysqli \
-	php8-curl \
-	php8-gd \
-	php8-mbstring \
-	php8-xml \
-	php8-openssl \
-	php8-zip \
+	apk add --no-cache php \
+	php7-fpm \
+	php7-phar \
+	php7-json \
+	php-mysqli \
+	mariadb-client \
+	php7-mbstring \
+	wget \
 	curl \
 	tar
 
@@ -29,11 +26,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
-COPY ./tools/www.conf /etc/php/8/fpm/pool.d
-# RUN chmod +x /etc/php/8/fpm/www.conf
-
-RUN mkdir -p /run/php
-# CMD ["php-fpm8.0", "--nodaemonize"]
+COPY ./tools/www.conf /etc/php/7/fpm/
+RUN chmod +x /etc/php/7/fpm/www.conf
 
 EXPOSE 9000
 

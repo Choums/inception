@@ -7,11 +7,11 @@ http {
 		listen		443 ssl;
 		server_name	chaidel.42.fr;
 		
-		ssl_protocols		TLSv1.3;
+		ssl_protocols		TLSv1.2 TLSv1.3;
 		ssl_certificate		/etc/nginx/certificate.pem;
 		ssl_certificate_key	/etc/nginx/private.key;
 
-		root	/var/www;
+		root	/var/www/wordpress;
 		index	index.php;
 
 		# Requetes PHP
@@ -30,6 +30,7 @@ http {
 
 		# Autres Requetes
 		location / {
+			autoindex on;
 			try_files	$uri $uri/ /index.php?args;
 		}
 	}
