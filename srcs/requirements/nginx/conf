@@ -1,6 +1,6 @@
 worker_processes auto;
 pid		/run/nginx.pid;
-include	/etc/nginx/modules-enabled/*.conf
+include	/etc/nginx/modules-enabled/*.conf;
 
 http {
 	server {
@@ -17,9 +17,6 @@ http {
 		# Requetes PHP
 		location ~ \.php {
 			fastcgi_split_path_info ^(.+\.php)(/.+)$; # Decoupe les infos et les captures dans document root et script name
-			if (!f $document_root$fastcgi_script_name) { # Verif que les fichiers existent
-				return 404;
-			}
 
 			fastcgi_pass	wordpress:9000;
 			fastcgi_index	index.php; 		# Index par defauts si aucun n'est fournis

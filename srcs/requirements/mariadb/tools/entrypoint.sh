@@ -1,4 +1,9 @@
 #!/bin/sh
 
-tail -f
-# mysqld --user=mysql --bootstrap < /init.sql
+
+if [ ! -d "/var/lib/mysql/wordpress" ]; then
+    /usr/bin/mysqld --user=mysql --bootstrap < /init.sql
+fi
+
+/usr/bin/mysqld --skip-log-error --port=3306
+

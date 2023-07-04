@@ -1,4 +1,4 @@
-version:	'3'
+version:	'3.2'
 
 services:
     nginx:
@@ -6,10 +6,9 @@ services:
         volumes:
           - wpdata:/var/www/wordpress
         build:	./requirements/nginx
-        env_file:
-          - .env
+        env_file: .env
         ports:
-          - 443:443
+          - "443:443"
         networks:
           - docker_network
         restart:	always
@@ -24,8 +23,8 @@ services:
           - mariadb
         env_file:
           - .env
-        ports:
-          - 9000:9000
+        # ports:
+        #   - "9000:9000"
         networks:
           - docker_network
         volumes:
@@ -40,8 +39,8 @@ services:
         build:	./requirements/mariadb
         env_file:
           - .env
-        ports:
-          - 3306:3306
+        # ports:
+        #   - "3306:3306"
         networks:
           - docker_network
         volumes:

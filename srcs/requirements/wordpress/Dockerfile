@@ -12,6 +12,7 @@ RUN apk update && apk upgrade \
 	curl \
 	tar
 
+RUN mkdir -p /var/www
 WORKDIR /var/www
 RUN chmod +x /var/www
 
@@ -21,22 +22,24 @@ RUN curl -O https://wordpress.org/latest.tar.gz && \
 	rm latest.tar.gz && \
 	mv wordpress /var/www/
 
+#Change root owner to write inside /var/www/wordpress
+RUN chown -R root:root /var/www/wordpress
+
 # Installation de WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
 
-COPY ./tools/www.conf /etc/php/7/fpm/pool.d
-# RUN chmod +x /etc/php/7/fpm/www.conf
+COPY ./tools/www.conf /etc/php7/php-fpm.d/www.conf
+RUN chmod +x /etc/php7/php-fpm.d/www.conf
 
-EXPOSE 9000
-
-COPY ./tools/wp-config.php /var/www/wp-config.php
-RUN chmod +x /var/www/wp-config.php
+# COPY ./tools/wp-config.php /var/www/wp-config.php
+# RUN chmod +x /var/www/wp-config.php
 
 COPY ./tools/wp-install.sh .
 RUN chmod +x wp-install.sh
 
+EXPOSE 9000
 
 ENTRYPOINT [ "/bin/sh", "wp-install.sh" ]

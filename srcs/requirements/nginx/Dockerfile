@@ -5,7 +5,7 @@ RUN apk -U upgrade\
 
 COPY ./conf /etc/nginx/nginx.conf
 
-COPY ./tools/certificate.pem	/etc/nginx/certificate.pem
+COPY ./tools/certificate.pem 	/etc/nginx/certificate.pem
 COPY ./tools/private.key		/etc/nginx/private.key
 
 RUN chmod -R 777 /etc/nginx

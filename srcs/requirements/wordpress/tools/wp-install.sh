@@ -1,47 +1,33 @@
-#!/bin/sh
 sleep 10
-# cd /var/www/wordpress
 
-# Définition des variables
+#Check if wp-config exist to not relaunch the config script everytime we launch the container
 if ! [ -f "/var/www/wordpress/wp-config.php" ]; then
-
-	WP_PATH="/var/www/wordpress"                  # chemin d'installation de WordPress
-	WP_URL="https://chaidel.42.fr"  # URL de votre site WordPress
-	WP_TITLE="Inception"            # titre de votre site WordPress
-	WP_ADMIN_USER="Chamsito"        # nom d'utilisateur de l'administrateur
-	WP_PASS="tes1"                  # mot de passe de l'administrateur
-	WP_ADMIN_EMAIL="chaidel@42.fr"  # e-mail de l'administrateur
-
-# Téléchargement et installation de WordPress
-    wp core download --path="$WP_PATH"
-
-    wp config create    --dbname="wordpress" \
-                        --dbuser="wpuser" \
-                        --dbpass="wppass" \
-                        --dbhost=mariadb:3306 \
-                        --path="$WP_PATH" \
-                        --allow-root
-
-    wp core install --path="$WP_PATH" \
-                    --url="$WP_URL" \
-                    --title="$WP_TITLE" \
-                    --admin_user="$WP_ADMIN_USER" \
-                    --admin_password="$WP_PASS" \
-                    --admin_email="$WP_ADMIN_EMAIL"
-
-    # Creation d'un user admin et un auteur
-    wp user create --path="$WP_PATH" $WP_ADMIN_USER $WP_ADMIN_EMAIL --role=administrator
-
-    wp user create --path="$WP_PATH" random rand@42.fr --role=author
+	wp config create	--dbname=$MYSQL_DB \
+						--dbuser=$MYSQL_USER \
+						--dbpass=$MYSQL_PASSWORD \
+						--dbhost=mariadb:3306 --path='/var/www/wordpress' \
+						--allow-root \
+	&& wp core install	--title="chaidel.42.fr" \
+						--url="chaidel.42.fr" \
+						--path='/var/www/wordpress' \
+						--admin_user="chaidel" \
+						--admin_password=$WP_PASS \
+						--admin_email="chaidel@student.42.fr" \
+						--skip-email \
+						--allow-root \
+	&& wp user create	author rand@example.com \
+						--path='/var/www/wordpress' \
+						--role=author \
+						--user_pass=$TEST_PASS \
+						--allow-root
 fi
 
-if ! [ "/run/php" ]; then
-    mkdir /run/php
+#Check if /run/php exist to prevent an error from php
+if ! [ -d "/run/php" ]; then
+	mkdir /run/php
 fi
 
 echo "Wordpress installation succesful !"
-echo "URL: $WP_URL"
-echo "Admin: $WP_ADMIN_USER"
 
 echo "Lancement PHP-FPM !"
 /usr/sbin/php-fpm7 --nodaemonize
