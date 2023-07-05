@@ -30,6 +30,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 	chmod +x wp-cli.phar && \
 	mv wp-cli.phar /usr/local/bin/wp
 
+# Creer l'user etl'assigne au groupe
+RUN adduser -D -G www-data www-data
 
 COPY ./tools/www.conf /etc/php7/php-fpm.d/www.conf
 RUN chmod +x /etc/php7/php-fpm.d/www.conf
