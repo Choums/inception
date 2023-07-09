@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sleep 10
 
 #Check if wp-config exist to not relaunch the config script everytime we launch the container
