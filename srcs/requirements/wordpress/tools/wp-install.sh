@@ -29,7 +29,5 @@ if ! [ -d "/run/php" ]; then
 	mkdir /run/php
 fi
 
-echo "Wordpress installation succesful !"
-
 echo "Lancement PHP-FPM !"
 /usr/sbin/php-fpm7 --nodaemonize

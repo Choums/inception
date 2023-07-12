@@ -36,9 +36,6 @@ RUN adduser -D -G www-data www-data
 COPY ./tools/www.conf /etc/php7/php-fpm.d/www.conf
 RUN chmod +x /etc/php7/php-fpm.d/www.conf
 
-# COPY ./tools/wp-config.php /var/www/wp-config.php
-# RUN chmod +x /var/www/wp-config.php
-
 COPY ./tools/wp-install.sh .
 RUN chmod +x wp-install.sh
 
