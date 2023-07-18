@@ -20,5 +20,5 @@ COPY ./tools/entrypoint.sh	/entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 USER mysql
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT [ "/bin/sh" , "/entrypoint.sh"]
 #/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf 
